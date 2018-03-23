@@ -8,11 +8,11 @@ def get_html(url):
 
 def get_data(html):
 	soup = BeautifulSoup(html, 'lxml')
-	h1 = soup.find('section').find('div', id='item-pager').find('div', id='item-page').text
+	h1 = soup.find('dl').find('dd').find('ul').text
 	return h1
 
 def main():
-	url = 'https://ask.fm/KatyaBrazhnik'
+	url = 'https://point.md/ru/tv/nashe-lyubimoe-kino'
 	print(get_data(get_html(url)))
 
 
