@@ -8,8 +8,15 @@ def get_html(url):
 
 def get_data(html):
 	soup = BeautifulSoup(html, 'lxml')
-	popular = soup.find_all('section')[1].text
-	return popular	
+	popular = soup.find_all('section')[1]
+	plugins = popular.find_all('article')
+
+
+	for plugin in plugins:
+		name = plugin.find('h2')
+		print(name)
+
+	return plugins	
 
 
 def main():
