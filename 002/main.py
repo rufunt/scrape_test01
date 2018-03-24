@@ -13,10 +13,12 @@ def get_data(html):
 
 
 	for plugin in plugins:
-		name = plugin.find('h2')
-		print(name)
+		name = plugin.find('h2').text
+		url = plugin.find('h2').find('a').get('href')
+		rating = plugin.find('span', class_='rating-count').find('a').text
+		print(name, ' ', rating)
 
-	return plugins	
+	#return plugins	
 
 
 def main():
