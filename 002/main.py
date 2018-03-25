@@ -6,6 +6,11 @@ def get_html(url):
 	r = requests.get(url)
 	return r.text
 
+def refined(s):
+	r = s.split(' ')[0]
+	return r.replace(',', '')
+
+
 def get_data(html):
 	soup = BeautifulSoup(html, 'lxml')
 	popular = soup.find_all('section')[1]
@@ -16,7 +21,8 @@ def get_data(html):
 		name = plugin.find('h2').text
 		url = plugin.find('h2').find('a').get('href')
 		rating = plugin.find('span', class_='rating-count').find('a').text
-		print(name, ' ', rating)
+		refined(rating)
+		#print(rating)
 
 	#return plugins	
 
