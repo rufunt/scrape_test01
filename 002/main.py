@@ -20,9 +20,15 @@ def get_data(html):
 	for plugin in plugins:
 		name = plugin.find('h2').text
 		url = plugin.find('h2').find('a').get('href')
-		rating = plugin.find('span', class_='rating-count').find('a').text
-		refined(rating)
-		#print(rating)
+
+		r = plugin.find('span', class_='rating-count').find('a').text
+		rating = refined(r)
+		
+		data = {'name': name,
+				'url': url,
+				'reviews': rating }
+
+		print(data)		
 
 	#return plugins	
 
