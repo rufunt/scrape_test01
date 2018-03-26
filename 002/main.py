@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
 
 
 def get_html(url):
@@ -9,6 +10,13 @@ def get_html(url):
 def refined(s):
 	r = s.split(' ')[0]
 	return r.replace(',', '')
+
+def write_csv(data):
+	with open('plugins.csv', 'a') as f:
+		writer = csv.writer(f)
+
+		writer.writerow((data['name'], data['url'], data['reviews']))
+
 
 
 def get_data(html):
@@ -28,7 +36,8 @@ def get_data(html):
 				'url': url,
 				'reviews': rating }
 
-		print(data)		
+		#print(data)		
+		write_csv(data)
 
 	#return plugins	
 
