@@ -18,10 +18,9 @@ def write_csv(data):
 		writer.writerow((data['name'], data['url'], data['reviews']))
 
 
-
 def get_data(html):
 	soup = BeautifulSoup(html, 'lxml')
-	popular = soup.find_all('section')[1]
+	popular = soup.find_all('section', class_='plugin-section')[1]
 	plugins = popular.find_all('article')
 
 
@@ -36,20 +35,11 @@ def get_data(html):
 				'url': url,
 				'reviews': rating }
 
-		#print(data)		
 		write_csv(data)
-
-	#return plugins	
-
 
 def main():
 	url = 'https://wordpress.org/plugins/'
-	print(get_data(get_html(url)))
-
-
-
-
-
+	get_data(get_html(url))
 
 
 if __name__ == '__main__':
