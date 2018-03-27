@@ -28,7 +28,7 @@ def get_page_data(html):
 	
 	for div in lists:
 		try:
-			title = div.find('h2').text.strip()
+			title = div.find('h2').find('u').text
 		except:
 			title = ''
 
@@ -56,7 +56,7 @@ def get_page_data(html):
 def main():
 	pattern = 'https://footballhd.ru/allnews/page/{}/'
 
-	for i in range(1, 6):
+	for i in range(1, 5):
 		url = pattern.format(str(i))
 		get_page_data(get_html(url))
 
