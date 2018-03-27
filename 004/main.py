@@ -10,10 +10,15 @@ def get_html(url):
 	print(r.status_code)
 
 
+def refine_cy(s):
+	# ТИЦ: 5555 -> ['ТИЦ', '5555']
+	return s.split(' ')[-1]	
+
+
 def write_csv(data):
 		with open('football.csv', 'a') as f:
 			writer = csv.writer(f)
-			pass
+			writer.writerow((data['title'], data['url'], data['snippet'], data['coment']))
 
 
 def get_page_data(html):
@@ -23,9 +28,9 @@ def get_page_data(html):
 	
 	for div in lists:
 		try:
-			name = div.find('h2').text
+			title = div.find('h2').text.strip()
 		except:
-			name = ''
+			title = ''
 
 		try:
 			url = div.find('h2').find('a').get('href')
@@ -33,23 +38,27 @@ def get_page_data(html):
 			url = ''
 
 		try:
-			snip = div.find('p').text
+			snippet = div.find('p').text.strip()
 		except:
-			snip = ''
+			snippet = ''
 
 		try:
-			kom = div.find('b').text.strip()
+			coment = div.find('b').text.strip()
 		except:
-			kom = ''	
+			coment = ''	
 
-		print(kom)		
+		data = { 'title': title, 'url': url, 'snippet': snippet, 'coment': coment }
 
 
+		write_csv(data)
 
 
 def main():
-	url = 'https://footballhd.ru/allnews/page/1/'
-	get_page_data(get_html(url))
+	pattern = 'https://footballhd.ru/allnews/page/{}/'
+
+	for i in range(1, 6):
+		url = pattern.format(str(i))
+		get_page_data(get_html(url))
 
 
 
