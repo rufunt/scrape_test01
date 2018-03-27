@@ -26,7 +26,23 @@ def get_page_data(html):
 			name = div.find('h2').text
 		except:
 			name = ''
-		print(name)	
+
+		try:
+			url = div.find('h2').find('a').get('href')
+		except:
+			url = ''
+
+		try:
+			snip = div.find('p').text
+		except:
+			snip = ''
+
+		try:
+			kom = div.find('b').text.strip()
+		except:
+			kom = ''	
+
+		print(kom)		
 
 
 
