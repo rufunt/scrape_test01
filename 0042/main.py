@@ -16,6 +16,8 @@ def write_csv(data):
 	    writer = csv.writer(f)
 	    pass		
 
+def get_page_data(html, 'lxml'):
+	soup = BeautifulSoup(html, 'lxml')
 
 
 
