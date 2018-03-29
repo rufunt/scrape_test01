@@ -16,9 +16,27 @@ def write_csv(data):
 	    writer = csv.writer(f)
 	    pass		
 
-def get_page_data(html, 'lxml'):
+def get_page_data(html):
 	soup = BeautifulSoup(html, 'lxml')
 
+	lists = soup.find_all('div', class_='mb10')
+
+	for div in lists:
+		try:
+			title = div.find_all('h3').text.strip()
+		except:
+			title = ''
+
+		try:
+			url = div.find_all('h3').find('a').get('href')
+		except:
+			url = ''
+
+		try:
+			snippet = div.find('p').text.strip()
+		except:
+			snippet = ''	
+        print(title)
 
 
 def main():
