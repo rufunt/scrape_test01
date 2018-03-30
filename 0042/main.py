@@ -12,7 +12,7 @@ def get_html(url):
 
 
 def write_csv(data):
-	with open(nnm.csv, 'a') as f:
+	with open('nnm.csv', 'a') as f:
 		writer = csv.writer(f)
 		writer.writerow((data['title'], data['url'], data['snippet']))	
 
@@ -23,12 +23,12 @@ def get_page_data(html):
 
 	for div in lists:
 		try:
-			title = div.find('h3').text.strip()
+			title = div.find_all('h3').text.strip()
 		except:
 			title = ''
 
 		try:
-			url = div.find('h3').find('a').get('href')
+			url = div.find_all('h3').find('a').get('href')
 		except:
 			url = ''
 
@@ -43,7 +43,7 @@ def get_page_data(html):
 
 
 def main():
-	url = 'http://itog.info/blogs/page1/'
+	url = 'http://itog.info/blogs/'
 	get_page_data(get_html(url))
 
 
