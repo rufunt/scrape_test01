@@ -13,8 +13,8 @@ def get_html(url):
 
 def write_csv(data):
 	with open(nnm.csv, 'a') as f:
-	    writer = csv.writer(f)
-	    pass		
+		writer = csv.writer(f)
+		writer.writerow((data['title'], data['url'], data['snippet']))	
 
 def get_page_data(html):
 	soup = BeautifulSoup(html, 'lxml')
@@ -23,12 +23,12 @@ def get_page_data(html):
 
 	for div in lists:
 		try:
-			title = div.find_all('h3').text.strip()
+			title = div.find('h3').text.strip()
 		except:
 			title = ''
 
 		try:
-			url = div.find_all('h3').find('a').get('href')
+			url = div.find('h3').find('a').get('href')
 		except:
 			url = ''
 
@@ -36,12 +36,15 @@ def get_page_data(html):
 			snippet = div.find('p').text.strip()
 		except:
 			snippet = ''	
-        print(title)
+        
+		data = {'title': title,'url': url,'snippet': snippet }
+
+		write_csv(data)
 
 
 def main():
 	url = 'http://itog.info/blogs/page1/'
-	print(get_html(url))
+	get_page_data(get_html(url))
 
 
 
