@@ -2,13 +2,20 @@ import csv
 
 
 def write_csv(data):
-	pass
+	with open('names.csv', 'a') as file:
+		writer = csv.writer(file)
+		writer.writerow((data['name'], data['surname'], data['age']))
 
 
 def main():
-	d = {'name': 'Petr', 'surname': 'Ivanov', 'age': 33}
-	n = {'name': 'Fedr', 'surname': 'Petrov', 'age': 23}
-	c = {'name': 'Petro', 'surname': 'Sidorov', 'age': 53}
+	d1 = {'name': 'Petr', 'surname': 'Ivanov', 'age': 33}
+	d2 = {'name': 'Fedr', 'surname': 'Petrov', 'age': 23}
+	d3 = {'name': 'Petro', 'surname': 'Sidorov', 'age': 53}
+
+	l = [d1, d2, d3]
+
+	for i in l:
+		write_csv(i)
 
 
 if __name__ == '__main__':
