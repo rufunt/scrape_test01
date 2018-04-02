@@ -12,7 +12,7 @@ def write_csv2(data):
 		order = ['name', 'surname', 'age']
 		writer = csv.DictWriter(file, fieldnames=order)
 
-		writer.writerow(data)	
+		writer.writerow(data)
 
 
 def main():
@@ -22,9 +22,12 @@ def main():
 
 	l = [d1, d2, d3]
 
-	for i in l:
-		write_csv2(i)
+	with open('names.csv') as file:
+		reader = csv.DictReader(file)
+
+		for row in reader:
+			print(row)
 
 
 if __name__ == '__main__':
-	main()		
+	main()
