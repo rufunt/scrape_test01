@@ -23,7 +23,8 @@ def main():
 	l = [d1, d2, d3]
 
 	with open('names.csv') as file:
-		reader = csv.DictReader(file)
+		fieldnames = ['surname', 'name', 'age']
+		reader = csv.DictReader(file, fieldnames=fieldnames)
 
 		for row in reader:
 			print(row)
