@@ -1,4 +1,5 @@
 import requests
+from bs4 import BeautifulSoup
 
 
 
@@ -9,6 +10,19 @@ def get_html(url):
 	print(r.status_code)
 
 
+
+def get_all_links(html):
+	soup = BeautifulSoup(html, 'lxml')
+
+	tds = soup.find('table', id='currencies-all').find_all('td', class_='currency-name')
+
+	links = []
+
+	for td in tds:
+		a = td.find('a').get('href')
+		links.append(a)
+
+	return links		
 
 
 
