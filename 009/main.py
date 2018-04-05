@@ -11,11 +11,9 @@ def write_csv(data):
         writer = csv.DictWriter(f, fieldnames=order)
         writer.writerow(data)
 
-def get_page_data(html):
-    for i in range(0, 10):
-        url = 'https://www.liveinternet.ru/rating/ru//today.tsv?page={}'.format(str(i))
-        response = get_html(url)
-        data = response.strip().split('\n')[1:]
+def get_page_data(text):
+    
+        data = text.strip().split('\n')[1:]
 
         for row in data:
             columns = row.strip().split('\t')
@@ -31,7 +29,9 @@ def get_page_data(html):
 
 
 def main():
-
+    #for i in range(0, 10):
+        #url = 'https://www.liveinternet.ru/rating/ru//today.tsv?page={}'.format(str(i))
+        #response = get_html(url)
     
 
 if __name__ == '__main__':
