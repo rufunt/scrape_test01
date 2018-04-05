@@ -37,7 +37,7 @@ def get_page_data(html):
 		name = ''
 
 	try:
-		price = soup.find('spam', id+'quote_price').text.strip()
+		price = soup.find('span', id='quote_price').text.strip()
 	except:
 		price = ''
 
