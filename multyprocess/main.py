@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 from datetime import datetime
+from multiprocessing import Pool
 
 
 def get_html(url):
@@ -51,6 +52,11 @@ def write_csv(data):
 
 		print(data['name'], 'parsed')
 
+def make_all(url):
+	html = get_html(url)
+	data = get_page_data(html)
+	write_csv(data)
+	
 
 
 def main():
@@ -60,11 +66,14 @@ def main():
 	
 	all_links = get_all_links( get_html(url) )
 
-	for index, url in enumerate(all_links):
-		html = get_html(url)
-		data = get_page_data(html)
-		write_csv(data)
-		print(index)
+	#for index, url in enumerate(all_links):
+	#	html = get_html(url)
+	#	data = get_page_data(html)
+	#	write_csv(data)
+	#	print(index)
+
+	with Pool(15) as p:
+		p.map(make_all, all_links)
 
 	end = datetime.now()
 	
