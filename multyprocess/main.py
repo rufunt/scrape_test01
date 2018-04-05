@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-
+import csv
+from datetime import datetime
 
 
 def get_html(url):
@@ -20,19 +21,54 @@ def get_all_links(html):
 
 	for td in tds:
 		a = td.find('a').get('href')
-		links.append(a)
+		link = 'https://coinmarketcap.com' + a
+		links.append(link)
 
-	return links		
+	return links
 
 
+def get_page_data(html):
+	soup = BeautifulSoup(html, 'lxml')
+
+	try:
+		name = soup.find('h1', class_='text-large').text.strip()
+	except:
+		name = ''
+
+	try:
+		price = soup.find('spam', id+'quote_price').text.strip()
+	except:
+		price = ''
+
+	data = {'name': name, 'price': price}
+	
+	return data		
+
+def write_csv(data):
+	with open('sites.csv', 'a') as file:
+		writer = csv.writer(file)
+		writer.writerow((data['name'], data['price']))
+
+		print(data['name'], 'parsed')
 
 
 
 def main():
+	start = datetime.now()
+
 	url = 'https://coinmarketcap.com/all/views/all/'
-	print(get_html(url))
+	
+	all_links = get_all_links( get_html(url) )
 
+	for index, url in enumerate(all_links):
+		html = get_html(url)
+		data = get_page_data(html)
+		write_csv(data)
+		print(index)
 
+	end = datetime.now()
+	
+	print(str(end - start))
 
 if __name__ == '__main__':
 	main()
