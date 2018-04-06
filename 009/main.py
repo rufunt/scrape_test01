@@ -9,7 +9,7 @@ def get_html(url):
 
 def write_csv(data):
     with open('websites.csv', 'a') as f:
-        order = []
+        order = ['name', 'url', 'description', 'traffic', 'percent']
         writer = csv.DictWriter(f, fieldnames=order)
         writer.writerow(data)
 
@@ -36,9 +36,12 @@ def make_all(url):
 
 def main():
     #8549
-    #for i in range(0, 10):
-        #url = 'https://www.liveinternet.ru/rating/ru//today.tsv?page={}'.format(str(i))
-        #response = get_html(url)
+    
+    url = 'https://www.liveinternet.ru/rating/ru//today.tsv?page={}'
+    urls = [url.format(str(i)) for i in range(1, 8550)]
+
+    with Pool(20) as p:
+        p.map(make_all, urls)
     
 
 if __name__ == '__main__':
