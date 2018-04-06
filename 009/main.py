@@ -1,5 +1,7 @@
 import requests
 import csv
+from datetime import datetime
+from multiprocessing import Pool
 
 def get_html(url):
     r = requests.get(url)
@@ -27,8 +29,13 @@ def get_page_data(text):
 
             write_csv(data)
 
+def make_all(url):
+    text = get_html(url)
+    get_page_data(text)            
+
 
 def main():
+    #8549
     #for i in range(0, 10):
         #url = 'https://www.liveinternet.ru/rating/ru//today.tsv?page={}'.format(str(i))
         #response = get_html(url)
